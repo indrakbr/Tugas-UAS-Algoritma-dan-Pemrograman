@@ -1,0 +1,331 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<Windows.h>
+
+typedef struct KTP
+{
+	char nama[100];
+	char tempatlahir[20];
+	char tanggallahir[20];
+	char kewarganegaraan[20];
+	char pekerjaan[20];
+	char agama[10];
+	char golongandarah[2];
+} stack;
+
+void cover(){		// merupakan cover pada awal program
+
+	system("color f1");
+	
+	printf("\n\n\n\n\n\t\t====================================================");
+	printf("\n\t\t\t\t== SELAMAT DATANG ==");
+	printf("\n\t\t === KELURAHAN KUKUSAN KECAMATAN BEJI KOTA DEPOK ===");
+	printf("\n\n\n\t\t     REGISTRASI E-KTP ONLINE");
+	
+	printf("\n\t\t====================================================");
+	printf("\n\n");
+	
+	printf("\n\n\n\n\n\nDibuat oleh : 1. Muhammad Jodie Abraham Isa \t\t 2. Indra Akbar Maulana ");
+	printf("\n----------------------------------------------------------------------------");
+	printf("\n\n\n----------------------------------------------------------------------------");
+	printf("\n\n");
+}
+
+int tampilkanpekerjaan(int number)
+{
+	printf("\nJumlah pendaftar dengan pekerjaan yang anda cari adalah %d orang",number);
+}
+int tampilkanagama(int number)
+{
+	printf("\nJumlah pendaftar dengan agama yang anda cari adalah %d orang",number);
+}
+int tampilkangolongandarah(int number)
+{
+	printf("\nJumlah pendaftar dengan golongan darah yang anda cari adalah %d orang",number);
+}
+int main()
+{
+	cover();
+	system("pause");
+	system("cls");
+	system("color f1");
+    SYSTEMTIME str_t;
+    GetSystemTime(&str_t);
+	struct KTP DATA[10];
+	char a[5];
+	char find[100];
+	int loop;
+	int i=1;
+	int n=1;
+	int l, k, nomor;
+	int p=0,d=0,h=0,hitung=0,hitung1=0;
+	int pilihancari=0;
+	char caripekerjaan[20],cariagama[10],carigoldar[2];
+	
+	loop=0;
+	while(loop!=6)
+	{
+		system("cls");
+		printf("\n\t       ====================================================");
+		printf("\n\n\t\t\tPROGRAM TATA KELOLA PEMBUATAN E-KTP :\n\n");
+		printf("\t       ====================================================");
+		printf("\n\nMENU PROGRAM :\n\n");
+		printf("1. MEMASUKAN DATA PEMBUATAN E-KTP\n");
+		printf("2. MENCETAK DATA E-KTP/MENGELUARKAN DATA DARI ANTRIAN\n");
+		printf("3. MENAMPILKAN DAFTAR ANTRIAN PEMBUATAN E-KTP\n");
+		printf("4. EDIT DATA PEMBUAT KTP\n");
+		printf("5. MENCARI NOMOR ANTRIAN\n");
+		printf("6. KELUAR DARI PROGRAM\n");
+		printf("\n\n\n----------------------------------------------------------------------------");
+		printf("\n\n\t\tPEMBUATAN KTP ONLINE SEKARANG MUDAH");
+		printf("\n\n----------------------------------------------------------------------------");
+		printf("\n\nPILIHAN ANDA : ");
+		scanf("%d", &loop);
+			
+		switch(loop)
+		{
+			case 1: if (i == 10)
+						{
+							printf("Queue sudah penuh.\n");
+							system("pause");
+							break;
+						}
+					else
+						{
+							system("cls");
+							printf("\n\t       ====================================================");
+							printf("\n\n\t\t\tPROGRAM TATA KELOLA PEMBUATAN E-KTP :\n\n");
+							printf("\t       ====================================================");
+							printf("\n\nNAMA LENGKAP : ");
+							scanf(" %[^\n]s", DATA[i].nama);
+							printf("\nTEMPAT LAHIR : ");
+							scanf(" %[^\n]s", DATA[i].tempatlahir);
+							printf("\nTANGGAL LAHIR : ");
+							scanf("%s", DATA[i].tanggallahir);
+							printf("\nKEWARGANEGARAAN : ");
+							scanf("%s", DATA[i].kewarganegaraan);
+							printf("\nPEKERJAAN : ");
+							scanf("%s", DATA[i].pekerjaan);
+							printf("\nAGAMA : ");
+							scanf("%s", DATA[i].agama);
+							printf("\nGOLONGAN DARAH : ");
+							scanf("%s", DATA[i].golongandarah);
+							i = i+1;
+							system("pause");
+							break;
+						}
+ 
+			case 2 : if (i != 0)
+ 					{
+ 						FILE *f = fopen("Data_E-KTP.txt", "w");//membuka file datanilaimahasiswa.txt
+						if (f == NULL)//error handling jika tidak ada nama file yang diberikan
+						{
+						    printf("Error opening file!\n");
+						    exit(1);
+						}
+						//mencetak informasi ke file datanilaimahasiswa.txt
+						fprintf(f, "==============DATA KARTU TANDA PENDUDUK ELEKTRONIK=======");
+						fprintf(f, "\n=========================================================");
+						fprintf(f, "\nNAMA LENGKAP      : %s",DATA[1].nama);
+						fprintf(f, "\nTEMPAT LAHIR      : %s",DATA[1].tempatlahir);
+						fprintf(f, "\nTANGGAL LAHIR     : %s",DATA[1].tanggallahir);
+						fprintf(f,"\nKEWARGANEGARAAN   : %s",DATA[1].kewarganegaraan);
+						fprintf(f,"\nPEKERJAAN         : %s",DATA[1].pekerjaan);
+						fprintf(f,"\nAGAMA             : %s",DATA[1].agama);
+						fprintf(f,"\nGOLONGAN DARAH    : %s",DATA[1].golongandarah);
+						fprintf(f, "\nTANGGAL CETAK     : %d/%d/%d",str_t.wDay,str_t.wMonth,str_t.wYear);
+						fprintf(f, "\n=========================================================");
+			            fprintf(f,"\n\n\t\t\t\tTTD");
+			            fprintf(f,"\n\t\t      LURAH KELURAHAN KUKUSAN");
+			            fprintf(f,"\n\n\n\n\n\t\t    <                          >");
+						fclose(f);
+ 						n=1;
+ 						
+						while(n<=(i-1))
+						{
+							l=n+1;
+							strcpy(DATA[n].nama, DATA[l].nama);
+							strcpy(DATA[n].tempatlahir, DATA[l].tempatlahir);
+							strcpy(DATA[n].tanggallahir, DATA[l].tanggallahir);
+							strcpy(DATA[n].kewarganegaraan, DATA[l].kewarganegaraan);
+							strcpy(DATA[n].pekerjaan, DATA[l].pekerjaan);
+							strcpy(DATA[n].agama, DATA[l].agama);
+							strcpy(DATA[n].golongandarah, DATA[l].golongandarah);
+							n++;
+						}
+						
+						i=i-1;
+						printf("\nDATA E-KTP ANTRIAN NOMOR 1 TELAH DICETAK");
+						printf("\n");
+						system("pause");
+						break;
+					}
+ 					
+ 					else
+ 					{
+ 						printf("stack belum terisi");
+					}
+ 						break;
+ 						
+ 			case 3 :
+ 				system("cls");
+				printf("\n\t       ====================================================");
+				printf("\n\n\t\t\tPROGRAM TATA KELOLA PEMBUATAN E-KTP :\n\n");
+				printf("\t       ====================================================");
+				
+				printf("\n\nDAFTAR ANTRIAN PEMBUATAN KTP KELURAHAN DEPOK");
+				printf("\n-------------------------------------------------------------------------------");
+				  for(n=1;n<=(i-1);n++)
+ 					{
+ 						 printf("\n%d. %s ",n, DATA[n].nama);
+ 						
+					}
+					
+				printf("\n");
+				system("pause");
+				break;
+		
+			case 4 : 
+				system("cls");
+				printf("EDIT DATA KTP ?\n");
+				printf("\nMASUKAN NOMOR ANTRIAN ANDA	:");
+				scanf("%d",&p);
+				printf("\n\nDATA KTP ANDA YANG TERDAFTAR PADA SISTEM :");
+				printf( "\nNAMA LENGKAP      : %s",DATA[p].nama);
+				printf( "\nTEMPAT LAHIR      : %s",DATA[p].tempatlahir);
+				printf( "\nTANGGAL LAHIR     : %s",DATA[p].tanggallahir);
+				printf("\nKEWARGANEGARAAN   : %s",DATA[p].kewarganegaraan);
+				printf("\nPEKERJAAN         : %s",DATA[p].pekerjaan);
+				printf("\nAGAMA             : %s",DATA[p].agama);
+				printf("\nGOLONGAN DARAH    : %s",DATA[p].golongandarah);
+				printf("\n\nDATA YANG MAU DIEDIT ?");
+				printf("\n1. NAMA\t2.Tempat lahir\t3.Tanggal Lahir\n4.Kewarganegaran\t5.Pekerjaan\t6.Agama\n7.Golongan Darah");
+				printf("\n\nPILIHAN ANDA	: ");
+				scanf("%d",&d);
+				if(d==1)
+				{
+					printf("\n\nNAMA LENGKAP : ");
+					scanf(" %[^\n]s", DATA[p].nama);
+				}
+				else if(d==2)
+				{
+					printf("\nTEMPAT LAHIR : ");
+					scanf(" %[^\n]s", DATA[p].tempatlahir);
+				}	
+				else if(d==3)
+				{
+					printf("\nTANGGAL LAHIR : ");
+					scanf("%s", DATA[p].tanggallahir);
+				}
+				else if(d==4)
+				{
+					printf("\nKEWARGANEGARAAN : ");
+					scanf("%s", DATA[p].kewarganegaraan);
+				}
+				else if(d==5)
+				{
+					printf("\nPEKERJAAN : ");
+					scanf("%s", DATA[p].pekerjaan);
+				}
+				else if(d==6)
+				{
+					printf("\nAGAMA : ");
+					scanf("%s", DATA[p].agama);
+				}
+				else if(d==7)
+				{
+					printf("\nGOLONGAN DARAH : ");
+					scanf("%s", DATA[p].golongandarah);
+				}
+				
+				system("pasue");
+				break;
+				
+			case 5 : 
+				system("cls");
+				printf("SISTEM PENCARIAN	:\n1. Pekerjaan\n2.Agama\n3.Golongan Darah\n\n");
+				printf("\n\nPILIHAN ANDA :\n");
+				scanf("%d",&pilihancari);
+				if(pilihancari==1)
+				{
+					printf("\n\nPekerjaan yang akan dicari : ");
+					scanf("%s",&caripekerjaan);
+					hitung1=0;
+					hitung=0;
+					for(k=1;k<i;k++)
+					{
+						for(h=0;h<=20;h++)
+						{
+							if(caripekerjaan[h]==DATA[k].pekerjaan[h])
+							{
+								hitung=hitung+1;
+								printf("\n%d",hitung);
+							}
+						}
+						if(hitung>=18);
+						{
+							hitung1++;
+							hitung=0;
+						}
+						
+					}
+					tampilkanpekerjaan(hitung1);
+				}
+				if(pilihancari==2)
+				{
+					printf("\n\nAgama yang akan dicari : ");
+					scanf("%s",&cariagama);
+					hitung1=0;
+					hitung=0;
+					for(k=1;k<=i;k++)
+					{
+						for(h=0;h<=10;h++)
+						{
+							if(cariagama[h]==DATA[k].agama[h])
+							{
+								hitung++;
+							}
+						}
+						if(hitung==10);
+						{
+							hitung1++;
+							hitung=0;
+						}
+						
+					}
+					tampilkanagama(hitung1);
+				}
+				if(pilihancari==3)
+				{
+					printf("\n\nGolongan darah yang akan dicari : ");
+					scanf("%s",&carigoldar);
+					hitung1=0;
+					hitung=0;
+					for(k=1;k<=i;k++)
+					{
+						for(h=0;h<=2;h++)
+						{
+							if(carigoldar[h]==DATA[k].golongandarah[h])
+							{
+								hitung++;
+							}
+						}
+						if(hitung==2);
+						{
+							hitung1++;
+							hitung=0;
+						}
+						
+					}
+					tampilkangolongandarah(hitung1);
+				}
+				system("pause");
+				break;
+				
+				case 6:
+				system("exit");
+				break;					
+	}
+}
+}
